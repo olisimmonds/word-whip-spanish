@@ -2,6 +2,8 @@
 
 A simple, self-graded Spanish language learning app that helps you practice common Spanish words through listening and speaking exercises.
 
+I've called it [Hablary](https://word-whip-spanish.lovable.app/), give it a try.
+
 ## How It Works
 
 The app tests you on the most common Spanish nouns, verbs, and other words (adjectives, etc.) using two types of exercises:

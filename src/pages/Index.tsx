@@ -43,7 +43,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
             <CollapsibleTrigger className="flex items-center justify-between w-full py-4 hover:opacity-80 transition-opacity">
-              <span className="text-lg font-semibold">Word Settings</span>
+              <span className="text-lg font-semibold text-primary">Word Settings</span>
               <ChevronDown className={`h-5 w-5 transition-transform ${isSettingsOpen ? "rotate-180" : ""}`} />
             </CollapsibleTrigger>
             <CollapsibleContent>

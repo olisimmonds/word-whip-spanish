@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 40% 96%;
+    --background: 0 0% 100%;
     --foreground: 215 25% 27%;
 
     --card: 0 0% 100%;
@@ -38,10 +38,10 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    --question: 200 70% 96%;
+    --question: 200 70% 90%;
     --question-foreground: 215 25% 27%;
     
-    --answer: 120 50% 96%;
+    --answer: 120 50% 90%;
     --answer-foreground: 215 25% 27%;
 
     --sidebar-background: 0 0% 98%;
