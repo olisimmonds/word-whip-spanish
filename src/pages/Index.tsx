@@ -20,8 +20,12 @@ const Index = () => {
   const maxOtherWords = otherWords.length;
 
   const handleNumberInput = (value: string, setter: (value: number) => void, max: number) => {
+    if (value === "") {
+      setter(0);
+      return;
+    }
     const num = parseInt(value);
-    if (isNaN(num) || num < 1 || num > max) {
+    if (isNaN(num) || num < 0 || num > max) {
       setter(10);
     } else {
       setter(num);
@@ -42,9 +46,9 @@ const Index = () => {
       <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4">
           <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full py-4 hover:opacity-80 transition-opacity">
-              <span className="text-lg font-semibold text-primary">Word Settings</span>
-              <ChevronDown className={`h-5 w-5 transition-transform ${isSettingsOpen ? "rotate-180" : ""}`} />
+            <CollapsibleTrigger className="flex items-center justify-between w-full py-4 px-2 hover:opacity-80 transition-opacity">
+              <span className="text-lg font-semibold text-primary whitespace-nowrap overflow-hidden text-ellipsis">Word Settings</span>
+              <ChevronDown className={`h-5 w-5 flex-shrink-0 ml-2 transition-transform ${isSettingsOpen ? "rotate-180" : ""}`} />
             </CollapsibleTrigger>
             <CollapsibleContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pb-6">
@@ -56,7 +60,7 @@ const Index = () => {
                     type="number"
                     value={nounCount}
                     onChange={(e) => handleNumberInput(e.target.value, setNounCount, maxNouns)}
-                    min={1}
+                    min={0}
                     max={maxNouns}
                     className="w-full"
                   />
@@ -70,7 +74,7 @@ const Index = () => {
                     type="number"
                     value={verbCount}
                     onChange={(e) => handleNumberInput(e.target.value, setVerbCount, maxVerbs)}
-                    min={1}
+                    min={0}
                     max={maxVerbs}
                     className="w-full"
                   />
@@ -84,7 +88,7 @@ const Index = () => {
                     type="number"
                     value={otherWordCount}
                     onChange={(e) => handleNumberInput(e.target.value, setOtherWordCount, maxOtherWords)}
-                    min={1}
+                    min={0}
                     max={maxOtherWords}
                     className="w-full"
                   />

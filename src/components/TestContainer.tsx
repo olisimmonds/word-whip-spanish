@@ -27,6 +27,11 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
     const availableOtherWords = otherWords.slice(0, otherWordCount);
 
     const allWords = [...availableNouns, ...availableVerbs, ...availableOtherWords];
+    
+    if (allWords.length === 0) {
+      return { spanish: "Hola", english: "Hello" };
+    }
+    
     const randomIndex = Math.floor(Math.random() * allWords.length);
     return allWords[randomIndex];
   };
