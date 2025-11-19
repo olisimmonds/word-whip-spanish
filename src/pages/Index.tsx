@@ -2,69 +2,96 @@ import { useState } from "react";
 import { HelpTooltip } from "@/components/HelpTooltip";
 import { TestContainer } from "@/components/TestContainer";
 import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
+import { Input } from "@/components/ui/input";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
+import { nouns } from "@/data/nouns";
+import { verbs } from "@/data/verbs";
+import { otherWords } from "@/data/otherWords";
 
 const Index = () => {
   const [nounCount, setNounCount] = useState(10);
   const [verbCount, setVerbCount] = useState(10);
   const [otherWordCount, setOtherWordCount] = useState(10);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  const maxNouns = nouns.length;
+  const maxVerbs = verbs.length;
+  const maxOtherWords = otherWords.length;
+
+  const handleNumberInput = (value: string, setter: (value: number) => void, max: number) => {
+    const num = parseInt(value);
+    if (isNaN(num) || num < 1 || num > max) {
+      setter(10);
+    } else {
+      setter(num);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <header className="border-b border-border bg-card">
+    <div className="min-h-screen bg-background flex flex-col pt-16">
+      {/* Header - Fixed */}
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-card shadow-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-primary">Spanish Practice</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-primary">Hablary: Conversational Spanish Practice</h1>
           <HelpTooltip />
         </div>
       </header>
 
-      {/* Controls */}
+      {/* Controls - Collapsible */}
       <div className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="space-y-3">
-              <Label className="text-base font-medium">
-                Nouns: <span className="text-primary font-bold">{nounCount}</span>
-              </Label>
-              <Slider
-                value={[nounCount]}
-                onValueChange={(value) => setNounCount(value[0])}
-                min={1}
-                max={10}
-                step={1}
-                className="w-full"
-              />
-            </div>
+        <div className="container mx-auto px-4">
+          <Collapsible open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+            <CollapsibleTrigger className="flex items-center justify-between w-full py-4 hover:opacity-80 transition-opacity">
+              <span className="text-lg font-semibold">Word Settings</span>
+              <ChevronDown className={`h-5 w-5 transition-transform ${isSettingsOpen ? "rotate-180" : ""}`} />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pb-6">
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">
+                    Nouns (max {maxNouns})
+                  </Label>
+                  <Input
+                    type="number"
+                    value={nounCount}
+                    onChange={(e) => handleNumberInput(e.target.value, setNounCount, maxNouns)}
+                    min={1}
+                    max={maxNouns}
+                    className="w-full"
+                  />
+                </div>
 
-            <div className="space-y-3">
-              <Label className="text-base font-medium">
-                Verbs: <span className="text-primary font-bold">{verbCount}</span>
-              </Label>
-              <Slider
-                value={[verbCount]}
-                onValueChange={(value) => setVerbCount(value[0])}
-                min={1}
-                max={10}
-                step={1}
-                className="w-full"
-              />
-            </div>
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">
+                    Verbs (max {maxVerbs})
+                  </Label>
+                  <Input
+                    type="number"
+                    value={verbCount}
+                    onChange={(e) => handleNumberInput(e.target.value, setVerbCount, maxVerbs)}
+                    min={1}
+                    max={maxVerbs}
+                    className="w-full"
+                  />
+                </div>
 
-            <div className="space-y-3">
-              <Label className="text-base font-medium">
-                Other Words: <span className="text-primary font-bold">{otherWordCount}</span>
-              </Label>
-              <Slider
-                value={[otherWordCount]}
-                onValueChange={(value) => setOtherWordCount(value[0])}
-                min={1}
-                max={10}
-                step={1}
-                className="w-full"
-              />
-            </div>
-          </div>
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">
+                    Other Words (max {maxOtherWords})
+                  </Label>
+                  <Input
+                    type="number"
+                    value={otherWordCount}
+                    onChange={(e) => handleNumberInput(e.target.value, setOtherWordCount, maxOtherWords)}
+                    min={1}
+                    max={maxOtherWords}
+                    className="w-full"
+                  />
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </div>
       </div>
 
