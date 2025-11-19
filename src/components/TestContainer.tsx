@@ -59,7 +59,7 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
 
   return (
     <div className="flex flex-col items-center justify-center flex-1 py-12">
-      <div className={`${backgroundColor} rounded-3xl p-12 w-full max-w-2xl min-h-[400px] flex flex-col items-center justify-center space-y-8 transition-colors duration-300`}>
+      <div className={`${backgroundColor} rounded-3xl p-8 md:p-12 w-full max-w-2xl min-h-[400px] flex flex-col items-center justify-center space-y-8 transition-colors duration-300 shadow-lg`}>
         {testType === "listening" ? (
           // Listening Test
           <>
@@ -70,6 +70,7 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
               </div>
             ) : (
               <div className="flex flex-col items-center space-y-6">
+                <p className="text-lg text-muted-foreground mb-4">Correct answer:</p>
                 <WordDisplay 
                   word={currentWord.spanish} 
                   translation={currentWord.english}
@@ -89,6 +90,7 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
               </div>
             ) : (
               <div className="flex flex-col items-center space-y-6">
+                <p className="text-lg text-muted-foreground mb-4">Correct answer:</p>
                 <WordDisplay 
                   word={currentWord.spanish} 
                   translation={currentWord.english}
@@ -104,7 +106,7 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
       <Button
         onClick={handleNext}
         size="lg"
-        className="mt-8 px-12 py-6 text-lg"
+        className="mt-8 px-12 py-6 text-lg shadow-md w-[80%] max-w-[640px]"
       >
         Next
       </Button>
