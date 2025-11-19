@@ -24,7 +24,7 @@ The app tests you on the most common Spanish nouns, verbs, and other words (adje
 
 ### Word Lists
 
-The app includes lists of the 10 most common:
+The app includes lists of the x most common:
 - Spanish nouns (in `src/data/nouns.ts`)
 - Conjugated Spanish verbs (in `src/data/verbs.ts`)
 - Other Spanish words like adjectives (in `src/data/otherWords.ts`)
