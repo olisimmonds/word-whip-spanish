@@ -1,73 +1,47 @@
-# Welcome to your Lovable project
+# Spanish Practice App
 
-## Project info
+A simple, self-graded Spanish language learning app that helps you practice common Spanish words through listening and speaking exercises.
 
-**URL**: https://lovable.dev/projects/717907ad-2dae-49e5-ac65-5581d90f46ac
+## How It Works
 
-## How can I edit this code?
+The app tests you on the most common Spanish nouns, verbs, and other words (adjectives, etc.) using two types of exercises:
 
-There are several ways of editing your application.
+### Test Types
 
-**Use Lovable**
+1. **Listening Test**: Click the speaker icon to hear a Spanish word pronounced with native Spanish pronunciation. Try to understand the word, then press Next to see both the Spanish word and its English translation.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/717907ad-2dae-49e5-ac65-5581d90f46ac) and start prompting.
+2. **Speaking Test**: See an English word and say the Spanish translation aloud to yourself. Press Next to see and hear the correct Spanish word.
 
-Changes made via Lovable will be committed automatically to this repo.
+### Features
 
-**Use your preferred IDE**
+- Adjustable word counts: Select how many words from each category (nouns, verbs, other words) you want to practice
+- Random test selection: The app randomly chooses both the word and test type
+- Self-graded: No input required - be honest with yourself!
+- Native Spanish pronunciation using Web Speech API
+- Visual distinction between question and answer states
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Word Lists
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The app includes lists of the 10 most common:
+- Spanish nouns (in `src/data/nouns.ts`)
+- Conjugated Spanish verbs (in `src/data/verbs.ts`)
+- Other Spanish words like adjectives (in `src/data/otherWords.ts`)
 
-Follow these steps:
+You can edit these files to add more words or modify existing ones.
+
+## Project Setup
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Install dependencies
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Technologies
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
+- React + TypeScript
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/717907ad-2dae-49e5-ac65-5581d90f46ac) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- shadcn/ui components
+- Web Speech API for Spanish text-to-speech
