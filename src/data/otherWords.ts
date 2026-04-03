@@ -1,7 +1,4 @@
-export interface Word {
-  spanish: string;
-  english: string;
-}
+import type { Word } from "@/types";
 
 export const otherWords: Word[] = [
   { spanish: "Todo", english: "all/everything" },

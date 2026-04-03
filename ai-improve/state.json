@@ -1,0 +1,5 @@
+{
+  "current_phase": "ui",
+  "completed_phases": ["analyse", "plan", "refactor"],
+  "current_task": "ui-phase-remaining"
+}

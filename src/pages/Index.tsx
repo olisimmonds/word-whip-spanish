@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HelpTooltip } from "@/components/HelpTooltip";
 import { TestContainer } from "@/components/TestContainer";
 import { Label } from "@/components/ui/label";
@@ -9,24 +9,58 @@ import { nouns } from "@/data/nouns";
 import { verbs } from "@/data/verbs";
 import { otherWords } from "@/data/otherWords";
 
-const Index = () => {
-  const [nounCount, setNounCount] = useState(10);
-  const [verbCount, setVerbCount] = useState(10);
-  const [otherWordCount, setOtherWordCount] = useState(10);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+const STORAGE_KEY = "hablary-word-counts";
 
+const loadSettings = () => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch {
+    // ignore parse errors
+  }
+  return null;
+};
+
+const Index = () => {
   const maxNouns = nouns.length;
   const maxVerbs = verbs.length;
   const maxOtherWords = otherWords.length;
 
-  const handleNumberInput = (value: string, setter: (value: number) => void, max: number) => {
+  const saved = loadSettings();
+
+  const [nounCount, setNounCount] = useState<number>(
+    saved?.nounCount ?? Math.min(10, maxNouns),
+  );
+  const [verbCount, setVerbCount] = useState<number>(
+    saved?.verbCount ?? Math.min(10, maxVerbs),
+  );
+  const [otherWordCount, setOtherWordCount] = useState<number>(
+    saved?.otherWordCount ?? Math.min(10, maxOtherWords),
+  );
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+  // Persist settings to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ nounCount, verbCount, otherWordCount }),
+    );
+  }, [nounCount, verbCount, otherWordCount]);
+
+  const handleNumberInput = (
+    value: string,
+    setter: (value: number) => void,
+    max: number,
+  ) => {
     if (value === "") {
       setter(0);
       return;
     }
-    const num = parseInt(value);
-    if (isNaN(num) || num < 0 || num > max) {
-      setter(10);
+    const num = parseInt(value, 10);
+    if (isNaN(num) || num < 0) {
+      setter(0);
+    } else if (num > max) {
+      setter(max);
     } else {
       setter(num);
     }

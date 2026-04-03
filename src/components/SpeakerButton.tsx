@@ -24,6 +24,7 @@ export const SpeakerButton = ({ text, size = "default" }: SpeakerButtonProps) =>
     <Button
       onClick={speak}
       size={size === "lg" ? "lg" : "default"}
+      aria-label={`Pronounce "${text}" in Spanish`}
       className={`${
         size === "lg" ? "w-32 h-32" : "w-20 h-20"
       } rounded-full bg-primary hover:bg-primary/90 transition-all hover:scale-105`}

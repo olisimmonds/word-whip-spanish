@@ -10,26 +10,38 @@ The app tests you on the most common Spanish nouns, verbs, and other words (adje
 
 ### Test Types
 
-1. **Listening Test**: Click the speaker icon to hear a Spanish word pronounced with native Spanish pronunciation. Try to understand the word, then press Next to see both the Spanish word and its English translation.
+1. **Listening Test**: Click the speaker icon to hear a Spanish word pronounced with native Spanish pronunciation. Try to understand the word, then press "Show Answer" to see both the Spanish word and its English translation.
 
-2. **Speaking Test**: See an English word and say the Spanish translation aloud to yourself. Press Next to see and hear the correct Spanish word.
+2. **Speaking Test**: See an English word and say the Spanish translation aloud to yourself. Press "Show Answer" to see and hear the correct Spanish word.
+
+After revealing the answer, tap **Got it** if you were correct or **Missed it** if not. The app tracks your running score and percentage for the session.
 
 ### Features
 
 - Adjustable word counts: Select how many words from each category (nouns, verbs, other words) you want to practice
+- Settings are saved automatically and restored when you return
 - Random test selection: The app randomly chooses both the word and test type
-- Self-graded: No input required - be honest with yourself!
+- Self-graded: No input required — be honest with yourself!
 - Native Spanish pronunciation using Web Speech API
 - Visual distinction between question and answer states
+- Running score tracker (correct / incorrect / percentage)
 
 ### Word Lists
 
-The app includes lists of the x most common:
-- Spanish nouns (in `src/data/nouns.ts`)
-- Conjugated Spanish verbs (in `src/data/verbs.ts`)
-- Other Spanish words like adjectives (in `src/data/otherWords.ts`)
+The app includes the following unique, deduplicated word lists:
 
-You can edit these files to add more words or modify existing ones.
+- **168 Spanish nouns** (in `src/data/nouns.ts`)
+- **223 conjugated Spanish verbs and infinitives** (in `src/data/verbs.ts`)
+- **50 other Spanish words** — adjectives, adverbs, and pronouns (in `src/data/otherWords.ts`)
+
+You can edit these files to add more words or modify existing ones. Words follow the `Word` interface from `src/types/index.ts`:
+
+```ts
+interface Word {
+  spanish: string;
+  english: string;
+}
+```
 
 ## Project Setup
 
