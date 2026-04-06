@@ -24,7 +24,8 @@ After revealing the answer, tap **Got it** if you were correct or **Missed it** 
 - Self-graded: No input required — be honest with yourself!
 - Native Spanish pronunciation using Web Speech API
 - Visual distinction between question and answer states
-- Running score tracker (correct / incorrect / percentage)
+- Running score tracker (correct / incorrect / percentage) with a reset button
+- Category badge on each card showing whether the word is a Noun, Verb, or Other
 
 ### Word Lists
 
@@ -51,6 +52,9 @@ npm install
 
 # Start development server
 npm run dev
+
+# Run tests
+npm test
 ```
 
 ## Technologies
@@ -59,3 +63,4 @@ npm run dev
 - Tailwind CSS
 - shadcn/ui components
 - Web Speech API for Spanish text-to-speech
+- Vitest for unit and data integrity tests

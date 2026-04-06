@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { SpeakerButton } from "./SpeakerButton";
 import { WordDisplay } from "./WordDisplay";
 import { nouns } from "@/data/nouns";
 import { verbs } from "@/data/verbs";
 import { otherWords } from "@/data/otherWords";
-import type { Word } from "@/types";
-import { CheckCircle, XCircle } from "lucide-react";
+import type { TaggedWord } from "@/types";
+import { CheckCircle, XCircle, RotateCcw } from "lucide-react";
 
 interface TestContainerProps {
   nounCount: number;
@@ -24,18 +25,33 @@ interface Score {
 
 const pickRandom = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
 
+const CATEGORY_LABELS: Record<TaggedWord["category"], string> = {
+  noun: "Noun",
+  verb: "Verb",
+  other: "Other",
+};
+
+const CATEGORY_STYLES: Record<TaggedWord["category"], string> = {
+  noun: "bg-blue-100 text-blue-700 border-blue-200",
+  verb: "bg-purple-100 text-purple-700 border-purple-200",
+  other: "bg-amber-100 text-amber-700 border-amber-200",
+};
+
 export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestContainerProps) => {
-  const buildWordPool = useCallback(() => {
+  const buildWordPool = useCallback((): TaggedWord[] => {
     return [
-      ...nouns.slice(0, nounCount),
-      ...verbs.slice(0, verbCount),
-      ...otherWords.slice(0, otherWordCount),
+      ...nouns.slice(0, nounCount).map((w) => ({ ...w, category: "noun" as const })),
+      ...verbs.slice(0, verbCount).map((w) => ({ ...w, category: "verb" as const })),
+      ...otherWords.slice(0, otherWordCount).map((w) => ({ ...w, category: "other" as const })),
     ];
   }, [nounCount, verbCount, otherWordCount]);
 
-  const newTest = useCallback((): { word: Word; testType: TestType } => {
+  const newTest = useCallback((): { word: TaggedWord; testType: TestType } => {
     const pool = buildWordPool();
-    const word = pool.length > 0 ? pickRandom(pool) : { spanish: "Hola", english: "Hello" };
+    const word: TaggedWord =
+      pool.length > 0
+        ? pickRandom(pool)
+        : { spanish: "Hola", english: "Hello", category: "other" };
     const testType: TestType = Math.random() < 0.5 ? "listening" : "speaking";
     return { word, testType };
   }, [buildWordPool]);
@@ -61,6 +77,10 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
     startNewTest();
   };
 
+  const handleResetScore = () => {
+    setScore({ correct: 0, incorrect: 0 });
+  };
+
   const isQuestion = testState === "question";
   const backgroundColor = isQuestion ? "bg-question" : "bg-answer";
   const total = score.correct + score.incorrect;
@@ -68,24 +88,47 @@ export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestCont
   return (
     <div className="flex flex-col items-center justify-center flex-1 py-12">
       {/* Score bar */}
-      {total > 0 && (
-        <div className="flex items-center gap-4 mb-6 text-sm font-medium">
-          <span className="flex items-center gap-1 text-green-600">
-            <CheckCircle className="w-4 h-4" />
-            {score.correct}
-          </span>
-          <span className="text-muted-foreground">|</span>
-          <span className="flex items-center gap-1 text-red-500">
-            <XCircle className="w-4 h-4" />
-            {score.incorrect}
-          </span>
-          <span className="text-muted-foreground text-xs">
-            ({Math.round((score.correct / total) * 100)}%)
-          </span>
-        </div>
-      )}
+      <div className="flex items-center gap-4 mb-6 text-sm font-medium min-h-[28px]">
+        {total > 0 ? (
+          <>
+            <span className="flex items-center gap-1 text-green-600">
+              <CheckCircle className="w-4 h-4" />
+              {score.correct}
+            </span>
+            <span className="text-muted-foreground">|</span>
+            <span className="flex items-center gap-1 text-red-500">
+              <XCircle className="w-4 h-4" />
+              {score.incorrect}
+            </span>
+            <span className="text-muted-foreground text-xs">
+              ({Math.round((score.correct / total) * 100)}%)
+            </span>
+            <button
+              onClick={handleResetScore}
+              className="ml-2 flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Reset score"
+              title="Reset score"
+            >
+              <RotateCcw className="w-3 h-3" />
+              Reset
+            </button>
+          </>
+        ) : null}
+      </div>
 
-      <div className={`${backgroundColor} rounded-3xl p-8 md:p-12 w-full max-w-2xl min-h-[400px] flex flex-col items-center justify-center space-y-8 transition-colors duration-300 shadow-lg`}>
+      <div
+        className={`${backgroundColor} rounded-3xl p-8 md:p-12 w-full max-w-2xl min-h-[400px] flex flex-col items-center justify-center space-y-8 transition-colors duration-300 shadow-lg relative`}
+      >
+        {/* Category badge */}
+        <div className="absolute top-4 right-4">
+          <Badge
+            variant="outline"
+            className={`text-xs font-medium ${CATEGORY_STYLES[currentWord.category]}`}
+          >
+            {CATEGORY_LABELS[currentWord.category]}
+          </Badge>
+        </div>
+
         {testType === "listening" ? (
           // Listening Test: hear Spanish, guess the meaning
           <>
