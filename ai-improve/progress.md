@@ -58,3 +58,20 @@ All UI tasks completed:
 
 ### Status
 All planned improvement phases complete. Repository is production-ready.
+
+---
+
+## 2026-04-06 — Session 3 (Scheduled)
+
+### Housekeeping
+- Previous sessions had staged but uncommitted improvements — found 14 files staged from sessions 1–2 that were never committed.
+- All unstaged changes were whitespace only (CRLF→LF due to Windows/Linux environment differences across sessions).
+
+### Actions Taken
+- Created `.gitattributes` to enforce LF line endings for all text files going forward.
+- Committed all staged AI improvements in a single clean commit (`f98b43d`).
+- Committed CRLF→LF normalisation as a separate no-logic commit (`d209e14`).
+- Attempted `git push origin main` — blocked by sandbox network proxy (expected in automated runs); push must be done from the user's local machine or a connected session.
+
+### Status
+Two unpushed commits ready on `main`. No further improvement tasks pending.
