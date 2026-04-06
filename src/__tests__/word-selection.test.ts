@@ -3,10 +3,7 @@ import { nouns } from "@/data/nouns";
 import { verbs } from "@/data/verbs";
 import { otherWords } from "@/data/otherWords";
 import type { Word } from "@/types";
-
-// ─── pickRandom utility (duplicated here so we can test it in isolation) ──────
-
-const pickRandom = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+import { pickRandom } from "@/lib/utils";
 
 // ─── buildWordPool utility (mirrors TestContainer logic) ─────────────────────
 

@@ -7,6 +7,7 @@ import { nouns } from "@/data/nouns";
 import { verbs } from "@/data/verbs";
 import { otherWords } from "@/data/otherWords";
 import type { TaggedWord } from "@/types";
+import { pickRandom, shuffleArray } from "@/lib/utils";
 import { CheckCircle, XCircle, RotateCcw } from "lucide-react";
 
 interface TestContainerProps {
@@ -23,8 +24,6 @@ interface Score {
   incorrect: number;
 }
 
-const pickRandom = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
-
 const CATEGORY_LABELS: Record<TaggedWord["category"], string> = {
   noun: "Noun",
   verb: "Verb",
@@ -39,10 +38,12 @@ const CATEGORY_STYLES: Record<TaggedWord["category"], string> = {
 
 export const TestContainer = ({ nounCount, verbCount, otherWordCount }: TestContainerProps) => {
   const buildWordPool = useCallback((): TaggedWord[] => {
+    // Shuffle each list before slicing so every session draws a random
+    // subset, not always the same first N words.
     return [
-      ...nouns.slice(0, nounCount).map((w) => ({ ...w, category: "noun" as const })),
-      ...verbs.slice(0, verbCount).map((w) => ({ ...w, category: "verb" as const })),
-      ...otherWords.slice(0, otherWordCount).map((w) => ({ ...w, category: "other" as const })),
+      ...shuffleArray(nouns).slice(0, nounCount).map((w) => ({ ...w, category: "noun" as const })),
+      ...shuffleArray(verbs).slice(0, verbCount).map((w) => ({ ...w, category: "verb" as const })),
+      ...shuffleArray(otherWords).slice(0, otherWordCount).map((w) => ({ ...w, category: "other" as const })),
     ];
   }, [nounCount, verbCount, otherWordCount]);
 

@@ -11,16 +11,17 @@ export const HelpTooltip = () => {
       </PopoverTrigger>
       <PopoverContent className="max-w-sm p-4">
         <p className="text-sm leading-relaxed">
-          <strong>How it works:</strong> Select how many words from each category to practice. 
+          <strong>How it works:</strong> Select how many words from each category to practice.
           The app will randomly test you in two ways:
           <br /><br />
-          <strong>Listening Test:</strong> Click the speaker icon to hear a Spanish word. Try to understand it, 
-          then press Next to see the answer.
+          <strong>Listening Test:</strong> Click the speaker icon to hear a Spanish word. Try to
+          understand it, then press <em>Show Answer</em> to reveal the answer.
           <br /><br />
-          <strong>Speaking Test:</strong> Read the English word and say the Spanish translation aloud. 
-          Press Next to hear and see the correct answer.
+          <strong>Speaking Test:</strong> Read the English word and say the Spanish translation
+          aloud. Press <em>Show Answer</em> to hear and see the correct answer.
           <br /><br />
-          This is self-graded - be honest with yourself!
+          After the answer is revealed, tap <em>Got it</em> or <em>Missed it</em> to track your
+          score. Be honest with yourself!
         </p>
       </PopoverContent>
     </Popover>

@@ -26,17 +26,20 @@ const Index = () => {
   const maxVerbs = verbs.length;
   const maxOtherWords = otherWords.length;
 
-  const saved = loadSettings();
+  // Use a lazy initialiser so loadSettings is called exactly once on mount,
+  // not on every render.
+  const [{ nounCount, verbCount, otherWordCount }, setCounts] = useState(() => {
+    const saved = loadSettings();
+    return {
+      nounCount: saved?.nounCount ?? Math.min(10, maxNouns),
+      verbCount: saved?.verbCount ?? Math.min(10, maxVerbs),
+      otherWordCount: saved?.otherWordCount ?? Math.min(10, maxOtherWords),
+    };
+  });
 
-  const [nounCount, setNounCount] = useState<number>(
-    saved?.nounCount ?? Math.min(10, maxNouns),
-  );
-  const [verbCount, setVerbCount] = useState<number>(
-    saved?.verbCount ?? Math.min(10, maxVerbs),
-  );
-  const [otherWordCount, setOtherWordCount] = useState<number>(
-    saved?.otherWordCount ?? Math.min(10, maxOtherWords),
-  );
+  const setNounCount = (v: number) => setCounts((prev) => ({ ...prev, nounCount: v }));
+  const setVerbCount = (v: number) => setCounts((prev) => ({ ...prev, verbCount: v }));
+  const setOtherWordCount = (v: number) => setCounts((prev) => ({ ...prev, otherWordCount: v }));
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Persist settings to localStorage whenever they change

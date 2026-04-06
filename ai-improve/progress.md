@@ -75,3 +75,20 @@ All planned improvement phases complete. Repository is production-ready.
 
 ### Status
 Two unpushed commits ready on `main`. No further improvement tasks pending.
+
+---
+
+## 2026-04-06 — Session 4 (Scheduled)
+
+### Additional Polish
+
+Fresh analysis of the completed codebase revealed four correctness/quality issues that had been missed in earlier sessions:
+
+- **POLISH-3** ✅: `loadSettings` was being called on every render (at component body scope). Refactored to a single lazy `useState` initialiser with a combined state object (`{ nounCount, verbCount, otherWordCount }`), so localStorage is read exactly once on mount.
+- **POLISH-4** ✅: `buildWordPool` always used `.slice(0, N)` — users with a small count setting would only ever see the same first N words. Added `shuffleArray` (Fisher-Yates) to `src/lib/utils.ts` and applied it before slicing, so every session draws a random subset of vocabulary.
+- **POLISH-5** ✅: Extracted `pickRandom` from TestContainer into `src/lib/utils.ts` and exported it. TestContainer now imports from utils.
+- **POLISH-6** ✅: `HelpTooltip` copy still referenced "press Next" (old button label). Updated to match current UI: "Show Answer", "Got it", "Missed it".
+- **POLISH-7** ✅: `word-selection.test.ts` was duplicating the `pickRandom` implementation instead of importing it. Updated to import from `@/lib/utils`.
+
+### Status
+Changes committed and pushed (or awaiting push if network unavailable in sandbox).

@@ -18,6 +18,10 @@
 - [x] **POLISH-1**: Updated README.md — correct word counts (168 nouns, 223 verbs, 50 other), mentions category badge, reset button, and `npm test`
 - [x] **POLISH-2**: Cleaned up App.css — removed unused Vite boilerplate styles
 
-## Pending
+## Session 4 — Additional Polish (2026-04-06)
 
-_(No remaining tasks. Polish phase complete.)_
+- [x] **POLISH-3**: Fix `loadSettings` called on every render — moved to lazy `useState` initialiser; combined into single `setCounts` state object to avoid 3 separate localStorage reads
+- [x] **POLISH-4**: Shuffle word pool in `buildWordPool` (Fisher-Yates via new `shuffleArray` utility) so users see varied vocabulary, not always the first N items
+- [x] **POLISH-5**: Extract `pickRandom` from TestContainer into `src/lib/utils.ts`; add `shuffleArray` alongside it
+- [x] **POLISH-6**: Fix stale HelpTooltip copy — updated "press Next" references to "press Show Answer" / "Got it" / "Missed it"
+- [x] **POLISH-7**: Update `word-selection.test.ts` to import `pickRandom` from `@/lib/utils` instead of re-defining it locally
